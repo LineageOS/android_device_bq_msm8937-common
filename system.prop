@@ -168,6 +168,9 @@ persist.radio.custom_ecc=1
 persist.radio.sib16_support=1
 persist.radio.mt_sms_ack=20
 
+# Storage
+ro.sys.sdcardfs=true
+
 # Time service
 persist.timed.enable=true
 
