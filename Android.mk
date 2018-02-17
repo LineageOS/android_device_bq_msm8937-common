@@ -25,7 +25,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter tenshi,$(TARGET_DEVICE)),)
+ifneq ($(filter tenshi chazou,$(TARGET_DEVICE)),)
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 include $(CLEAR_VARS)
@@ -107,6 +107,7 @@ $(CPPF_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(CPPF_SYMLINKS)
 
+ifeq ($(TARGET_DEVICE),tenshi)
 FINGERPRINT_IMAGES := \
     fingerpr.b00 fingerpr.b01 fingerpr.b02 fingerpr.b03 fingerpr.b04 fingerpr.b05 \
     fingerpr.b06 fingerpr.mdt
@@ -132,6 +133,7 @@ $(FPCTZAPP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(FPCTZAPP_SYMLINKS)
+endif
 
 ISDB_IMAGES := \
     isdbtmm.b00 isdbtmm.b01 isdbtmm.b02 isdbtmm.b03 isdbtmm.b04 isdbtmm.b05 \

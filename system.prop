@@ -101,9 +101,6 @@ ro.am.reschedule_service=true
 # Factory Reset Protection
 ro.frp.pst=/dev/block/bootdevice/by-name/config
 
-# Fingerprint
-persist.qfp=false
-
 # FM radio
 ro.fm.transmitter=false
 

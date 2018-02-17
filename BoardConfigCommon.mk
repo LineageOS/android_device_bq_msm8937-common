@@ -15,12 +15,9 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := device/bq/tenshi
+VENDOR_PATH := device/bq/msm8937-common
 
-TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
-
-# Assert
-TARGET_OTA_ASSERT_DEVICE := Aquaris_U_Plus,tenshi
+TARGET_SPECIFIC_HEADER_PATH := $(VENDOR_PATH)/include
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8937
@@ -46,7 +43,6 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x01000000 -
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_APPEND_DTB := true
 TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
-TARGET_KERNEL_CONFIG := lineage_tenshi_defconfig
 TARGET_KERNEL_SOURCE := kernel/bq/msm8937
 
 # Audio
@@ -101,7 +97,6 @@ USE_CUSTOM_AUDIO_POLICY := 1
 USE_XML_AUDIO_POLICY_CONF := 1
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
 BLUETOOTH_HCI_USE_MCT := true
@@ -116,7 +111,7 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # CMHW
 BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS := device/bq/tenshi/cmhw/src
+BOARD_HARDWARE_CLASS := $(VENDOR_PATH)/cmhw/src
 
 # CNE
 BOARD_USES_QCNE := true
@@ -192,12 +187,15 @@ TARGET_PER_MGR_ENABLED := true
 # Power
 TARGET_POWERHAL_VARIANT := qcom
 
+# Properties
+TARGET_SYSTEM_PROP := $(VENDOR_PATH)/system.prop
+
 # Qualcomm
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QC_TIME_SERVICES := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.qcom
 
 # RIL
 TARGET_RIL_VARIANT := caf
@@ -207,7 +205,7 @@ USE_SENSOR_MULTI_HAL := true
 
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(LOCAL_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS += $(VENDOR_PATH)/sepolicy
 
 # Tap to wake
 TARGET_TAP_TO_WAKE_NODE := "/sys/android_touch/wakeup_gesture_enable"
@@ -215,14 +213,11 @@ TARGET_TAP_TO_WAKE_NODE := "/sys/android_touch/wakeup_gesture_enable"
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
 BOARD_HAS_QCOM_WLAN_SDK          := true
-BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 BOARD_WLAN_DEVICE                := qcwcn
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_DRIVER_FW_PATH_AP           := "ap"
 WIFI_DRIVER_FW_PATH_STA          := "sta"
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
-
-# inherit from the proprietary version
--include vendor/bq/tenshi/BoardConfigVendor.mk
