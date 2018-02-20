@@ -1,4 +1,4 @@
-ifneq ($(filter tenshi chazou,$(TARGET_DEVICE)),)
+ifneq ($(filter tenshi chaozu,$(TARGET_DEVICE)),)
 
 include $(call all-subdir-makefiles)
 
